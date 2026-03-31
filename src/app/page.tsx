@@ -1,15 +1,32 @@
+import ProjectCard from "../components/ProjectCard";
+import { projects } from "../data/projects";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-300 p-8 font-mono">
-      <div className="max-w-4xl mx-auto mt-20">
-        <h1 className="text-4xl text-white font-bold mb-4">Syed Masood Hussain</h1>
-        <p className="text-sm uppercase tracking-widest text-neutral-500 mb-12">
-          Systems / Infrastructure / Intelligence
-        </p>
+    <main className="min-h-screen bg-neutral-950 text-neutral-300 p-8 font-mono selection:bg-neutral-700">
+      <div className="max-w-4xl mx-auto mt-24">
+        <header className="mb-20">
+          <h1 className="text-5xl text-white font-bold mb-4 tracking-tighter">
+            Syed Masood Hussain
+          </h1>
+          <p className="text-sm uppercase tracking-widest text-neutral-500">
+            Systems / Infrastructure / Intelligence
+          </p>
+        </header>
 
-        <section className="border border-neutral-800 p-6 rounded-sm">
-          <h2 className="text-xl text-white mb-2">System Status: Online</h2>
-          <p>Initial architecture deployed.</p>
+        <section>
+          <div className="flex items-center gap-4 mb-8">
+            <h2 className="text-lg text-white uppercase tracking-widest">
+              Deployed Architecture
+            </h2>
+            <div className="h-[1px] bg-neutral-800 flex-grow"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
         </section>
       </div>
     </main>
