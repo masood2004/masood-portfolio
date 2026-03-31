@@ -29,7 +29,7 @@ export default function RootLayout({
               GitHub
             </a>
             <a
-              href="mailto:your-email@example.com"
+              href="mailto:hmasood3288@gmail.com"
               className="hover:text-white transition-colors"
             >
               Communicate
