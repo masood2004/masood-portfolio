@@ -29,6 +29,14 @@ export default function RootLayout({
               GitHub
             </a>
             <a
+              href="https://www.linkedin.com/in/masood-h/"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
               href="mailto:hmasood3288@gmail.com"
               className="hover:text-white transition-colors"
             >
