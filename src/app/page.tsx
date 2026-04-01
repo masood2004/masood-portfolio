@@ -10,7 +10,7 @@ export default function Home() {
             Syed Masood Hussain
           </h1>
           <p className="text-sm uppercase tracking-widest text-neutral-500">
-            Systems / Infrastructure / Intelligence
+            Systems Engineer
           </p>
         </header>
 
