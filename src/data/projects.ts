@@ -13,13 +13,13 @@ export const projects: Project[] = [
     title: "Fe64",
     description:
       "Custom chess engine utilizing raw bitboard representation for move generation and evaluation.",
-    techStack: ["C++", "Bitboards", "Game Theory", "Lichess API"],
+    techStack: ["C", "Bitboards", "Game Theory", "Lichess API"],
   },
   {
-    id: "ecommerce-portal",
-    title: "E-Commerce Optimization",
+    id: "axiom",
+    title: "Axiom: SDT-for-Data-Integrity",
     description:
-      "System architecture scaling and critical bug resolution for a production client environment.",
-    techStack: ["Web Architecture", "Debugging", "System Integration"],
+      "Production-grade DSL-to-SQL compiler. Converts complex business rules into robust MySQL triggers and CHECK constraints via SDT.",
+    techStack: ["Compiler", "MySQL", "Syntax Directed Translation"],
   },
 ];
