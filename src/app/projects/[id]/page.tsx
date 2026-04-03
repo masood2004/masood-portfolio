@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { projects } from "../../../data/projects";
+import LichessMatches from "../../../components/LichessMatches";
 
 export default async function ProjectPage({
   params,
@@ -13,6 +14,8 @@ export default async function ProjectPage({
   if (!project) {
     notFound();
   }
+
+  const architecture = (project as { architecture?: string }).architecture;
 
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-300 p-8 font-mono selection:bg-neutral-700">
@@ -51,10 +54,22 @@ export default async function ProjectPage({
           <h2 className="text-xl text-white mb-6 uppercase tracking-widest">
             Architecture & Implementation
           </h2>
-          <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-sm text-neutral-500 text-sm">
-            [Documentation pending execution. You must detail the mathematical
-            logic and infrastructure choices here.]
+          <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-sm text-neutral-500 text-sm mb-12">
+            {architecture ?? (
+              <span className="text-neutral-700">
+                [ DOCUMENTATION PENDING ]
+              </span>
+            )}
           </div>
+
+          {id === "fe64" && (
+            <section className="border-t border-neutral-800 pt-12">
+              <h2 className="text-xl text-white mb-6 uppercase tracking-widest">
+                Live Execution
+              </h2>
+              <LichessMatches />
+            </section>
+          )}
         </article>
       </div>
     </main>
