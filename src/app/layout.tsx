@@ -1,10 +1,64 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import Link from "next/link";
+import {
+  absoluteUrl,
+  githubProfile,
+  linkedinProfile,
+  personName,
+  professionalTitle,
+  profileEmail,
+  seoKeywords,
+  siteDescription,
+  siteName,
+} from "./seo";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Syed Masood Hussain | Systems Engineer",
-  description: "Infrastructure, Intelligence, and System Architecture.",
+  // metadataBase makes every relative Open Graph, robots, and canonical URL
+  // resolve to the production origin configured through NEXT_PUBLIC_SITE_URL.
+  metadataBase: new URL(absoluteUrl("/")),
+  applicationName: siteName,
+  authors: [{ name: personName, url: absoluteUrl("/") }],
+  creator: personName,
+  publisher: personName,
+  category: "technology",
+  keywords: seoKeywords,
+  title: {
+    default: `${personName} | ${professionalTitle}`,
+    template: `%s | ${personName}`,
+  },
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "profile",
+    url: "/",
+    siteName,
+    title: `${personName} | ${professionalTitle}`,
+    description: siteDescription,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${personName} | ${professionalTitle}`,
+    description: siteDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: {
+    // Add provider verification tokens here after claiming the site in Google
+    // Search Console, Bing Webmaster Tools, and other search platforms.
+  },
 };
 
 export default function RootLayout({
@@ -15,13 +69,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-neutral-950 text-neutral-300 font-mono antialiased selection:bg-neutral-700">
-        <nav className="max-w-4xl mx-auto px-8 pt-12 flex justify-between items-center text-xs uppercase tracking-widest text-neutral-500">
+        <nav
+          aria-label="Primary navigation"
+          className="max-w-4xl mx-auto px-8 pt-12 flex justify-between items-center text-xs uppercase tracking-widest text-neutral-500"
+        >
           <Link href="/" className="hover:text-white transition-colors">
             Base
           </Link>
           <div className="flex gap-6">
             <a
-              href="https://github.com/masood2004"
+              href={githubProfile}
               target="_blank"
               rel="noreferrer"
               className="hover:text-white transition-colors"
@@ -29,23 +86,20 @@ export default function RootLayout({
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/masood-h/"
+              href={linkedinProfile}
               target="_blank"
               rel="noreferrer"
               className="hover:text-white transition-colors"
             >
               LinkedIn
             </a>
-            <a
-              href="mailto:hmasood3288@gmail.com"
-              className="hover:text-white transition-colors"
-            >
+            <a href={profileEmail} className="hover:text-white transition-colors">
               Communicate
             </a>
           </div>
         </nav>
 
-        {/* The children prop renders the specific page you are currently on */}
+        {/* The children prop renders the route-specific page content. */}
         {children}
       </body>
     </html>
