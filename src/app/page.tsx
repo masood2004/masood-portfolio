@@ -94,12 +94,14 @@ export default function Home() {
           <div className="rounded border border-neutral-800 bg-neutral-900/40 p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <p className="text-sm text-neutral-400">
               Open to full-time roles and complex freelance builds. Reach me at
-              <span className="text-neutral-200"> {profileEmail}</span>.
+              <span className="text-neutral-200">
+                {" "}
+                {profileEmail?.slice(7)}
+              </span>
             </p>
-            <CopyEmailButton email={profileEmail} />
+            <CopyEmailButton email={profileEmail?.slice(7)} />
           </div>
         </section>
-
       </div>
     </main>
   );
