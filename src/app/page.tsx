@@ -9,6 +9,7 @@ import {
   profileEmail,
   siteDescription,
 } from "./seo";
+import CopyEmailButton from "../components/CopyEmailButton";
 
 export default function Home() {
   const personJsonLd = {
@@ -78,6 +79,27 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <section aria-labelledby="contact-heading" className="mt-20">
+          <div className="flex items-center gap-4 mb-6">
+            <h2
+              id="contact-heading"
+              className="text-lg text-white uppercase tracking-widest"
+            >
+              Contact
+            </h2>
+            <div className="h-[1px] bg-neutral-800 flex-grow" />
+          </div>
+
+          <div className="rounded border border-neutral-800 bg-neutral-900/40 p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <p className="text-sm text-neutral-400">
+              Open to full-time roles and complex freelance builds. Reach me at
+              <span className="text-neutral-200"> {profileEmail}</span>.
+            </p>
+            <CopyEmailButton email={profileEmail} />
+          </div>
+        </section>
+
       </div>
     </main>
   );
