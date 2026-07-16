@@ -1,5 +1,13 @@
 import ProjectCard from "../components/ProjectCard";
+import Navbar from "../components/Navbar";
+import About from "../components/About";
+import Skills from "../components/Skills";
+import Experience from "../components/Experience";
+import ContactForm from "../components/ContactForm";
+import Footer from "../components/Footer";
+
 import { projects } from "../data/projects";
+
 import {
   absoluteUrl,
   githubProfile,
@@ -9,7 +17,6 @@ import {
   profileEmail,
   siteDescription,
 } from "./seo";
-import CopyEmailButton from "../components/CopyEmailButton";
 
 export default function Home() {
   const personJsonLd = {
@@ -39,70 +46,87 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-300 p-8 font-mono selection:bg-neutral-700">
-      {/* Structured data gives search engines machine-readable context about
-          the owner, expertise areas, and internal project relationships. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
+    <>
+      <Navbar />
 
-      <div className="max-w-4xl mx-auto mt-24">
-        <header className="mb-20">
-          <p className="text-sm uppercase tracking-widest text-neutral-500 mb-3">
-            {professionalTitle} Portfolio
-          </p>
-          <h1 className="text-5xl text-white font-bold mb-4 tracking-tighter">
-            {personName}
-          </h1>
-          <p className="max-w-2xl text-base leading-7 text-neutral-400">
-            {siteDescription} This portfolio documents production-minded work
-            across vision systems, chess engine development, compiler pipelines,
-            and database reliability.
-          </p>
-        </header>
+      <main className="min-h-screen bg-neutral-950 font-mono text-neutral-300 selection:bg-neutral-700">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd),
+          }}
+        />
 
-        <section aria-labelledby="projects-heading">
-          <div className="flex items-center gap-4 mb-8">
-            <h2
-              id="projects-heading"
-              className="text-lg text-white uppercase tracking-widest"
-            >
-              Deployed Architecture
-            </h2>
-            <div className="h-[1px] bg-neutral-800 flex-grow" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </section>
-
-        <section aria-labelledby="contact-heading" className="mt-20">
-          <div className="flex items-center gap-4 mb-6">
-            <h2
-              id="contact-heading"
-              className="text-lg text-white uppercase tracking-widest"
-            >
-              Contact
-            </h2>
-            <div className="h-[1px] bg-neutral-800 flex-grow" />
-          </div>
-
-          <div className="rounded border border-neutral-800 bg-neutral-900/40 p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <p className="text-sm text-neutral-400">
-              Open to full-time roles and complex freelance builds. Reach me at
-              <span className="text-neutral-200">
-                {" "}
-                {profileEmail?.slice(7)}
-              </span>
+        <div className="mx-auto max-w-6xl px-6">
+          <header
+            id="home"
+            className="flex min-h-screen scroll-mt-24 flex-col justify-center py-28"
+          >
+            <p className="mb-4 text-sm uppercase tracking-[0.25em] text-neutral-500">
+              {professionalTitle} Portfolio
             </p>
-            <CopyEmailButton email={profileEmail?.slice(7)} />
-          </div>
-        </section>
-      </div>
-    </main>
+
+            <h1 className="max-w-4xl text-5xl font-bold tracking-tighter text-white md:text-7xl">
+              {personName}
+            </h1>
+
+            <p className="mt-7 max-w-3xl text-base leading-8 text-neutral-400 md:text-lg">
+              {siteDescription} This portfolio documents production-minded work
+              across vision systems, chess-engine development, compiler
+              pipelines, and database reliability.
+            </p>
+
+            <div className="mt-9 flex flex-wrap gap-4">
+              <a
+                href="#projects"
+                className="border border-white bg-white px-6 py-3 text-sm font-bold text-neutral-950 transition hover:bg-neutral-300"
+              >
+                View projects
+              </a>
+
+              <a
+                href="#contact"
+                className="border border-neutral-700 px-6 py-3 text-sm font-bold text-white transition hover:border-neutral-400"
+              >
+                Contact me
+              </a>
+            </div>
+          </header>
+
+          <About />
+
+          <Skills />
+
+          <section
+            id="projects"
+            aria-labelledby="projects-heading"
+            className="scroll-mt-28 py-20"
+          >
+            <div className="mb-8 flex items-center gap-4">
+              <h2
+                id="projects-heading"
+                className="text-lg uppercase tracking-widest text-white"
+              >
+                Deployed Architecture
+              </h2>
+
+              <div className="h-px flex-grow bg-neutral-800" />
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {projects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+          </section>
+
+          <Experience />
+
+          <ContactForm />
+        </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }
