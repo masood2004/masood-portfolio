@@ -67,7 +67,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className="bg-neutral-950 text-neutral-300 font-mono antialiased selection:bg-neutral-700">
         <nav
           aria-label="Primary navigation"
@@ -93,8 +93,14 @@ export default function RootLayout({
             >
               LinkedIn
             </a>
-            <a href={profileEmail} className="hover:text-white transition-colors">
+            {/* <a href={profileEmail} className="hover:text-white transition-colors">
               Communicate
+            </a> */}
+            <a
+              href={profileEmail}
+              className="hover:text-white transition-colors"
+            >
+              Contact Me
             </a>
           </div>
         </nav>
