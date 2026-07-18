@@ -122,6 +122,7 @@ export default function ContactForm() {
         <form
           onSubmit={handleSubmit(onSubmit)}
           noValidate
+          aria-busy={isSubmitting}
           className="border border-neutral-800 bg-neutral-900/40 p-6"
         >
           <div className="grid gap-5 md:grid-cols-2">
@@ -230,20 +231,22 @@ export default function ContactForm() {
             disabled={isSubmitting}
             className="mt-6 border border-neutral-600 bg-white px-6 py-3 text-sm font-bold text-neutral-950 transition hover:bg-neutral-300 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isSubmitting ? "Validating..." : "Submit enquiry"}
+            {isSubmitting ? "Submitting..." : "Submit enquiry"}
           </button>
 
           {submitted && (
             <p
               role="status"
+              aria-live="polite"
               className="mt-5 border border-green-900 bg-green-950/30 p-4 text-sm text-green-300"
             >
-              Thank you. Your enquiry has been saved successfully.
+              Thank you. Your enquiry has been received successfully.
             </p>
           )}
           {submitError && (
             <p
               role="alert"
+              aria-live="assertive"
               className="mt-5 border border-red-900 bg-red-950/30 p-4 text-sm text-red-300"
             >
               {submitError}
