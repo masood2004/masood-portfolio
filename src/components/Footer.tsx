@@ -4,6 +4,7 @@ import {
   personName,
   profileEmail,
 } from "../app/seo";
+import Link from "next/link";
 
 export default function Footer() {
   const email = profileEmail.replace("mailto:", "");
@@ -40,6 +41,9 @@ export default function Footer() {
           >
             Email
           </a>
+          <Link href="/login" className="transition-colors hover:text-white">
+            Admin
+          </Link>
         </div>
       </div>
     </footer>

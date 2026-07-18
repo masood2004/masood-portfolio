@@ -14,6 +14,22 @@ enum ContactStatus {
   RESOLVED  @map("Resolved")
 }
 
+model Profile {
+  id         String   @id @default(uuid()) @db.Uuid
+  authUserId String   @unique @map("auth_user_id") @db.Uuid
+  name       String   @db.VarChar(100)
+  email      String   @unique @db.VarChar(254)
+  role       UserRole @default(ADMIN) @unique
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("profiles")
+}
+
+enum UserRole {
+  ADMIN
+}
+
 model Contact {
   id        String        @id @default(uuid()) @db.Uuid
   name      String        @db.VarChar(80)
