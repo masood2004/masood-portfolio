@@ -2,37 +2,39 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+// import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { contactSchema, type ContactFormData } from "@/lib/validations/contact";
 
-const contactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, "Name must contain at least 2 characters.")
-    .max(80, "Name is too long."),
+// const contactSchema = z.object({
+//   name: z
+//     .string()
+//     .trim()
+//     .min(2, "Name must contain at least 2 characters.")
+//     .max(80, "Name is too long."),
 
-  email: z.string().trim().email("Please enter a valid email address."),
+//   email: z.string().trim().email("Please enter a valid email address."),
 
-  phone: z.string().trim().max(25, "Phone number is too long.").optional(),
+//   phone: z.string().trim().max(25, "Phone number is too long.").optional(),
 
-  subject: z
-    .string()
-    .trim()
-    .min(3, "Subject must contain at least 3 characters.")
-    .max(120, "Subject is too long."),
+//   subject: z
+//     .string()
+//     .trim()
+//     .min(3, "Subject must contain at least 3 characters.")
+//     .max(120, "Subject is too long."),
 
-  message: z
-    .string()
-    .trim()
-    .min(10, "Message must contain at least 10 characters.")
-    .max(1000, "Message must not exceed 1000 characters."),
-});
+//   message: z
+//     .string()
+//     .trim()
+//     .min(10, "Message must contain at least 10 characters.")
+//     .max(1000, "Message must not exceed 1000 characters."),
+// });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+// type ContactFormData = z.infer<typeof contactSchema>;
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const {
     register,
@@ -52,15 +54,37 @@ export default function ContactForm() {
 
   async function onSubmit(data: ContactFormData) {
     setSubmitted(false);
+    setSubmitError("");
 
-    // Temporary simulation for Task 2.
-    // Supabase and Prisma will replace this during Task 4.
-    await new Promise((resolve) => setTimeout(resolve, 700));
+    try {
+      const response = await fetch("/api/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    console.log("Validated contact data:", data);
+      const result: {
+        success?: boolean;
+        message?: string;
+      } = await response.json();
 
-    setSubmitted(true);
-    reset();
+      if (!response.ok) {
+        throw new Error(
+          result.message || "The enquiry could not be submitted.",
+        );
+      }
+
+      setSubmitted(true);
+      reset();
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred.",
+      );
+    }
   }
 
   const inputClasses =
@@ -90,9 +114,8 @@ export default function ContactForm() {
           </h3>
 
           <p className="mt-5 leading-7 text-neutral-400">
-            Share your project, opportunity, or technical problem. This form
-            currently performs frontend validation. Database storage will be
-            connected during the Supabase integration task.
+            Share your project, opportunity, or technical problem. Your enquiry
+            will be stored securely, and I will respond as soon as possible.
           </p>
         </div>
 
@@ -215,8 +238,15 @@ export default function ContactForm() {
               role="status"
               className="mt-5 border border-green-900 bg-green-950/30 p-4 text-sm text-green-300"
             >
-              Form validation successful. Database submission will be connected
-              during the Supabase integration stage.
+              Thank you. Your enquiry has been saved successfully.
+            </p>
+          )}
+          {submitError && (
+            <p
+              role="alert"
+              className="mt-5 border border-red-900 bg-red-950/30 p-4 text-sm text-red-300"
+            >
+              {submitError}
             </p>
           )}
         </form>
