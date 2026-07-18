@@ -45,3 +45,16 @@ model Contact {
   @@index([createdAt])
   @@map("contacts")
 }
+
+model LoginAttempt {
+  id            String    @id @default(uuid()) @db.Uuid
+  ipAddress     String    @unique @map("ip_address") @db.VarChar(64)
+  attempts      Int       @default(0)
+  lastAttemptAt DateTime  @default(now()) @map("last_attempt_at")
+  blockedUntil  DateTime? @map("blocked_until")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  @@index([blockedUntil])
+  @@map("login_attempts")
+}
