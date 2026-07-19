@@ -12,6 +12,8 @@ import {
   siteName,
 } from "./seo";
 import "./globals.css";
+// Import the Analytics component
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   // metadataBase makes every relative Open Graph, robots, and canonical URL
@@ -107,6 +109,8 @@ export default function RootLayout({
 
         {/* The children prop renders the route-specific page content. */}
         {children}
+        {/* Vercel Analytics Component */}
+        <Analytics />
       </body>
     </html>
   );
